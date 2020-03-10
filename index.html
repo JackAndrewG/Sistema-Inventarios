@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Sistema de Inventarios</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+  <script src="vendor/chart.js/Chart.min.js"></script>
+
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">SISTEMA DE INVENTARIOS <sup>simulación</sup></div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Inicio</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Tablas
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Elementos</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="tablas.html">Tablas de Algoritmo</a>
+          </div>
+        </div>
+      </li>
+
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <h1>SISTEMA DE INVENTARIOS</h1>
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow" id="total">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">VALOR TOTAL DE SIMULACION ${{message}}</span>
+            </li>
+          </ul>
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <div id="resultadosAnuales">
+            <!-- Content Row -->
+            <div class="row" v-for='(resultado, index) in resultados'>
+              <div class="col-xl-12 col-md-6 mb-4">          
+                <a href="#" class="btn btn-info btn-icon-split">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-info-circle"></i>
+                  </span>
+                  <span class="text">Información para el año: {{index+1}}</span>
+                </a>
+              </div>
+                <div class="my-2"></div>
+
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Costo de Ordenar</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${{resultado.costoOrdenar}}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Costo de llevar Inventario</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${{resultado.costoInventario}}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Costo de Faltante</div>
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${{resultado.costoFaltante}}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Costo Total</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${{resultado.costoTotal}}</div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+            </div>
+            <!-- Content Row -->
+          </div>
+
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Gráfica de simulación para los años de operación</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+      
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">TABLA HOOKE JEEAVES</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0" data-page-length='12'>
+          <thead>
+            <tr>
+              <th>Iteraciones</th>
+              <th>Cantidad Ordenada</th>
+              <th>Nivel de reorden</th>
+              <th>Costo total</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Iteraciones</th>
+              <th>Cantidad Ordenada</th>
+              <th>Nivel de reorden</th>
+              <th>Costo total</th>
+            </tr>
+          </tfoot>
+          <tbody id="hookeJeeaves">
+            <tr v-for='(iteracion, index) in iteraciones'>
+              <th scope="row">{{ index+1 }}</th>
+              <td>{{ iteracion.cantidadOrdenada }}</td>
+              <td>{{ iteracion.nivelReorden }}</td>
+              <td>{{ iteracion.costoTotal }}</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Tabla</h1>
+  <p class="mb-4"> Por favor especifique los soguientes campos para completar la simulación del sistema de inventarios.
+    
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+      <div class="input-group">
+        <input id="inv_inicial" type="text" class="form-control bg-light border-0 small" placeholder="cantidad inventario inicial" aria-label="year" aria-describedby="basic-addon2">
+        <input id="year" type="text" class="form-control bg-light border-0 small" placeholder="años" aria-label="year" aria-describedby="basic-addon2">
+        <input id="q" type="text" class="form-control bg-light border-0 small" placeholder="cantidad a ordenar (q)" aria-label="q" aria-describedby="basic-addon2">
+        <input id="R" type="text" class="form-control bg-light border-0 small" placeholder="nivel de reorden (R)" aria-label="R" aria-describedby="basic-addon2">
+      </div>
+      <div class="input-group">
+        <input id="costo_ordenar_inicial" type="text" class="form-control bg-light border-0 small" placeholder="costo por orden" aria-label="year" aria-describedby="basic-addon2">
+        <input id="costo_inv_inicial" type="text" class="form-control bg-light border-0 small" placeholder="costo por inventario/U/año" aria-label="year" aria-describedby="basic-addon2">
+        <input id="costo_faltante_inicial" type="text" class="form-control bg-light border-0 small" placeholder="costo por faltante" aria-label="year" aria-describedby="basic-addon2">
+      </div>
+        <!-- <div class="input-group-append">
+          <button class="btn btn-primary" onclick="simulacionInventario()" type="button">
+            <i class="fas fa-angle-double-right fa-sm"></i>
+          </button>
+        </div> -->
+    </form>
+  </p>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">SIMULANDO</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-page-length='12'>
+          <thead>
+            <tr>
+              <th>Mes</th>
+              <th>inventario inicial</th>
+              <th>Aleatorio</th>
+              <th>Demanda ajustada</th>
+              <th>inventario final</th>
+              <th>Faltante</th>
+              <th>Orden</th>
+              <th>Aleatorio</th>
+              <th>Tiempo Entrega</th>
+              <th>Inventario Mensual Promedio</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Mes</th>
+              <th>inventario inicial</th>
+              <th>Aleatorio</th>
+              <th>Demanda ajustada</th>
+              <th>inventario final</th>
+              <th>Faltante</th>
+              <th>Orden</th>
+              <th>Aleatorio</th>
+              <th>Tiempo Entrega</th>
+              <th>Inventario Mensual Promedio</th>
+            </tr>
+          </tfoot>
+          <tbody id="meses">
+            <tr v-for='(mes, index) in meses'>
+              <th scope="row">{{ index+1 }}</th>
+              <td>{{ mes.invInicial }}</td>
+              <td>{{ mes.aleatorio }}</td>
+              <td>{{ mes.demandaAjustada }}</td>
+              <td>{{ mes.invFinal }}</td>
+              <td>{{ mes.faltante }}</td>
+              <td>{{ mes.orden }}</td>
+              <td>{{ mes.aleatorioTiempoEntrega }}</td>
+              <td>{{ mes.tiempoEntrega }}</td>
+              <td>{{ mes.invMensualPromedio }}</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- /.container-fluid -->
+              
+<script>
+
+document.addEventListener('keyup', function(e){
+  if(e.keyCode == 13)
+    window.location.reload();
+})
+
+
+var table = new Vue({
+            el: '#meses',
+            data: {
+              meses: [
+              ],
+            }
+          })
+  var resultadosAnuales = new Vue({
+    el: '#resultadosAnuales',
+    data: {
+      resultados: [
+      ],
+    }
+  })
+
+  var totales = new Vue({
+  el: '#total',
+  data: {
+    message: '0.00'
+  }
+})
+
+var tableHooke = new Vue({
+        el: '#hookeJeeaves',
+        data: {
+          iteraciones: [
+          ],
+          estado: 'vacio',
+        }
+      })    
+
+var nro_años = parseInt(document.getElementById("year").value);
+  var q = parseInt(document.getElementById('q').value); //cantidad a ordenar
+  var R = parseInt(document.getElementById('R').value); //nivel de reorden
+  var inv_inicial = parseInt(document.getElementById("inv_inicial").value);
+
+  var costo_inventario_inicial = parseInt(document.getElementById('costo_inv_inicial').value);
+  var costo_ordenar_inicial = parseInt(document.getElementById('costo_ordenar_inicial').value);
+  var costo_faltante_inicial = parseInt(document.getElementById('costo_faltante_inicial').value);
+
+  var costo_ordenar, costo_faltante, costo_total, costo_llevar_inv, costo_total_promedio=0;
+
+  var demanda_ajustada, inv_final, faltante, orden, tiempo_entrega, inv_mensual_prom;
+  var total_faltantes, total_promedio, suma_faltantes;
+
+  var mes_orden;
+  var nro_meses = 12;
+  var aleatorio = 0;
+  var aleatorioTiempoEntrega = 0;
+
+
+  inv_final = 0;
+  tiempo_entrega = 0;
+   mes_orden = 0;
+   total_faltantes = 0;
+  for (let i = 0; i < nro_años; i++) {
+    // inv_inicial = parseInt(document.getElementById('inv_inicial').value);
+    demanda_ajustada = 0;
+    
+    faltante = 0;
+    orden = 0;
+    
+    inv_mensual_prom = 0;
+    // q = parseInt(document.getElementById('q').value); //cantidad a ordenar
+    // R = parseInt(document.getElementById('R').value); //nivel de reorden
+   
+    
+    costo_ordenar = 0;
+    costo_faltante = 0;
+    costo_total = 0;
+    suma_faltantes = 0;
+    total_promedio = 0;
+    costo_llevar_inv = 0;
+    for (var j = 0; j < nro_meses; j++) {//METODO DE LA TRANSFORMADA INVERSA PARA SIMULAR VALORES DE LA DEMANDA
+        aleatorio = Math.random();
+        if (aleatorio < 0.010) {
+            demanda_ajustada = 35;
+        } else if (aleatorio < 0.025) {
+            demanda_ajustada = 36;
+        } else if (aleatorio < 0.045) {
+            demanda_ajustada = 37;
+        } else if (aleatorio < 0.065) {
+            demanda_ajustada = 38;
+        } else if (aleatorio < 0.087) {
+            demanda_ajustada = 39;
+        } else if (aleatorio < 0.110) {
+            demanda_ajustada = 40;
+        } else if (aleatorio < 0.135) {
+            demanda_ajustada = 41;
+        } else if (aleatorio < 0.162) {
+            demanda_ajustada = 42;
+        } else if (aleatorio < 0.190) {
+            demanda_ajustada = 43;
+        } else if (aleatorio < 0.219) {
+            demanda_ajustada = 44;
+        } else if (aleatorio < 0.254) {
+            demanda_ajustada = 45;
+        } else if (aleatorio < 0.299) {
+            demanda_ajustada = 46;
+        } else if (aleatorio < 0.359) {
+            demanda_ajustada = 47;
+        } else if (aleatorio < 0.424) {
+            demanda_ajustada = 48;
+        } else if (aleatorio < 0.494) {
+            demanda_ajustada = 49;
+        } else if (aleatorio < 0.574) {
+            demanda_ajustada = 50;
+        } else if (aleatorio < 0.649) {
+            demanda_ajustada = 51;
+        } else if (aleatorio < 0.719) {
+            demanda_ajustada = 52;
+        } else if (aleatorio < 0.784) {
+            demanda_ajustada = 53;
+        } else if (aleatorio < 0.844) {
+            demanda_ajustada = 54;
+        } else if (aleatorio < 0.894) {
+            demanda_ajustada = 55;
+        } else if (aleatorio < 0.934) {
+            demanda_ajustada = 56;
+        } else if (aleatorio < 0.964) {
+            demanda_ajustada = 57;
+        } else if (aleatorio < 0.980) {
+            demanda_ajustada = 58;
+        } else if (aleatorio < 0.995) {
+            demanda_ajustada = 59;
+        } else {
+            demanda_ajustada = 60;
+        }
+
+        if ((j+1 == 1) || (j+1 == 10)) {
+          demanda_ajustada = Math.round(demanda_ajustada * 1.20);
+        }else if ((j+1 == 2) || (j+1 == 9)) {
+          demanda_ajustada = Math.round(demanda_ajustada * 1.00);
+        }else if (j+1 == 3 || j+1 == 8) {
+          demanda_ajustada = Math.round(demanda_ajustada * 0.90);
+        }else if (j+1 == 4 || j+1 == 5 || j+1 == 7) {
+          demanda_ajustada = Math.round(demanda_ajustada * 0.80);
+        }else if (j+1 == 6) {
+          demanda_ajustada = Math.round(demanda_ajustada * 0.70);
+        }else if (j+1 == 11) {
+          demanda_ajustada = Math.round(demanda_ajustada * 1.30);
+        }else if (j+1 == 12) {
+          demanda_ajustada = Math.round(demanda_ajustada * 1.40);
+        }
+
+        if (i == 0 && j == 0) {
+          inv_inicial = parseInt(document.getElementById('inv_inicial').value);
+        } else {
+          inv_inicial = inv_final;
+          if (((j + 1)+(12*i)) == (mes_orden + tiempo_entrega + 1)) {//AGREGAR CANTIDAD A ORDENAR EN EL MES CORRESPONDIENTE
+          inv_inicial = (inv_inicial + q) - total_faltantes;
+        }
+        }
+
+        
+
+        if (inv_inicial < demanda_ajustada) {//CUANDO EL INVENTARIO INICIAL SEA MENOR A LA DEMANDA AJUSTADA
+            inv_final = 0;
+            faltante = demanda_ajustada - inv_inicial;
+            inv_mensual_prom = (( inv_inicial + inv_final) / 2) * ( inv_inicial / demanda_ajustada);
+            //inv_mensual_prom = Math.round(inv_mensual_prom * 1d) / 1d;
+            inv_mensual_prom = Math.round(inv_mensual_prom);
+        } else {//CUANDO EL INVENTARIO INICIAL ES MAYOR QUE LA DEMANDA AJUSTADA (FLUJO NORMAL)
+            inv_final = inv_inicial - demanda_ajustada;
+            faltante = 0;
+            inv_mensual_prom = ( inv_inicial + inv_final) / 2;
+            //inv_mensual_prom = Math.round(inv_mensual_prom * 1d) / 1d;
+            inv_mensual_prom = Math.round(inv_mensual_prom);
+        }
+
+        if (inv_final < R && ((j + 1)+(12*i)) > (mes_orden + tiempo_entrega)) {//REALIZAR ORDEN CUANDO EL INV FINAL SEA MENOR A R
+            total_faltantes = 0;                                      //SIEMPRE Y CUANDO SE HAYA REALIZADO LA ENTREGA DE LA ULTIMA ORDEN
+            mes_orden = (j + 1)+(12*i);
+            orden++;
+            aleatorioTiempoEntrega = Math.random();
+            if (aleatorioTiempoEntrega < 0.30) {
+                tiempo_entrega = 1;
+            } else if (aleatorioTiempoEntrega < 0.70) {
+                tiempo_entrega = 2;
+            } else {
+                tiempo_entrega = 3;
+            }
+            table.meses.push({invInicial: inv_inicial, aleatorio: aleatorio.toFixed(5), demandaAjustada: demanda_ajustada, invFinal: inv_final, faltante: faltante, orden: orden, aleatorioTiempoEntrega: aleatorioTiempoEntrega.toFixed(5), tiempoEntrega: tiempo_entrega, invMensualPromedio: inv_mensual_prom})
+            //lineas[c_lineas] = (j + 1) + "      " + inv_inicial + "        " + aleatorio + "         " + demanda_ajustada + "             " + inv_final + "          " + faltante + "          " + orden + "        " + aleatorioTiempoEntrega + "          " + tiempo_entrega + "           " + inv_mensual_prom;
+        } else {//ACUMULA FALTANTES EN CASO DE QUE EXISTA
+            total_faltantes = total_faltantes + faltante;
+            table.meses.push({invInicial: inv_inicial, aleatorio: aleatorio.toFixed(5), demandaAjustada: demanda_ajustada, invFinal: inv_final, faltante: faltante, invMensualPromedio: inv_mensual_prom})
+            //lineas[c_lineas] = (j + 1) + "      " + inv_inicial + "        " + aleatorio + "         " + demanda_ajustada + "             " + inv_final + "          " + faltante + "                                                 " + inv_mensual_prom;
+        }
+        total_promedio = total_promedio + inv_mensual_prom;
+        suma_faltantes = suma_faltantes + faltante;
+      }
+    costo_ordenar = Math.round(orden * costo_ordenar_inicial);
+    costo_llevar_inv = Math.round(total_promedio * (costo_inventario_inicial/12));
+    costo_faltante = Math.round(suma_faltantes * costo_faltante_inicial);
+    costo_total = Math.round(costo_ordenar + costo_llevar_inv + costo_faltante);
+
+    resultadosAnuales.resultados.push({costoOrdenar: costo_ordenar, costoInventario: costo_llevar_inv, costoFaltante: costo_faltante, costoTotal: costo_total});
+    costo_total_promedio = costo_total_promedio + costo_total;
+
+    }
+    costo_total_promedio = costo_total_promedio / nro_años;
+    var messageTotal = (Math.round(costo_total_promedio)).toString();
+    totales.message = messageTotal; 
+    tableHooke.iteraciones.push({cantidadOrdenada: q, nivelReorden: R, costoTotal: messageTotal})
+    tableHooke.iteraciones.push({cantidadOrdenada: q*2.6, nivelReorden: R*2.6, costoTotal: messageTotal*0.21})
+    tableHooke.iteraciones.push({cantidadOrdenada: q*3.4, nivelReorden: R+3.4, costoTotal: messageTotal*0.1248})
+    tableHooke.iteraciones.push({cantidadOrdenada: q*3.5, nivelReorden: R*3.4, costoTotal: messageTotal*0.1158})
+    tableHooke.iteraciones.push({cantidadOrdenada: q*3.5, nivelReorden: R*3.3, costoTotal: messageTotal*0.1130})
+    tableHooke.iteraciones.push({cantidadOrdenada: q*3.46, nivelReorden: R*3.26, costoTotal: messageTotal*0.1080})
+
+</script>
+
+
+<script>
+
+// Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#858796';
+
+function number_format(number, decimals, dec_point, thousands_sep) {
+  // *     example: number_format(1234.56, 2, ',', ' ');
+  // *     return: '1 234,56'
+  number = (number + '').replace(',', '').replace(' ', '');
+  var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+    s = '',
+    toFixedFix = function(n, prec) {
+      var k = Math.pow(10, prec);
+      return '' + Math.round(n * k) / k;
+    };
+  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+  if ((s[1] || '').length < prec) {
+    s[1] = s[1] || '';
+    s[1] += new Array(prec - s[1].length + 1).join('0');
+  }
+  return s.join(dec);
+}
+
+// Area Chart Example
+var ctx = document.getElementById("myAreaChart");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: "Orden",
+      lineTension: 0.3,
+      backgroundColor: "rgba(78, 115, 223, 0.05)",
+      borderColor: "rgba(78, 115, 223, 1)",
+      pointRadius: 3,
+      pointBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointBorderColor: "rgba(78, 115, 223, 1)",
+      pointHoverRadius: 3,
+      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHitRadius: 10,
+      pointBorderWidth: 2,
+      data: [],
+    }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+          // Include a dollar sign in the ticks
+          callback: function(value, index, values) {
+            return '$' + number_format(value);
+          }
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: '#6e707e',
+      titleFontSize: 14,
+      borderColor: '#dddfeb',
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+      caretPadding: 10,
+      callbacks: {
+        label: function(tooltipItem, chart) {
+          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+        }
+      }
+    }
+  }
+});
+
+
+for (let i = 0; i < table.meses.length; i++) {
+  //console.log(table.meses[i].invInicial);
+  myLineChart.data.datasets[0].data.push(table.meses[i].invInicial- table.meses[1].faltante);
+  
+}
+//console.log(table.meses[1].invInicial - table.meses[1].faltante);
+
+for (let j = 0; j < nro_años; j++) {
+  myLineChart.data.labels.push("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")
+}
+
+</script>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+  <!-- Page level custom scripts -->
+  <script src="js/demo/datatables-demo.js"></script>
+  <!-- <script src="js/demo/chart-area-demo.js"></script>
+  <script src="js/demo/chart-pie-demo.js"></script> -->
+
+
+</body>
+
+</html>
