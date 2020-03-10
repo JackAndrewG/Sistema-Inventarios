@@ -7,4 +7,10 @@
 ![Vista Principal sistema de inventarios](img/preview.png)
 
 
+## Transformada Inversa
+
+![transformada inversa que sigue las siguientes condiciones](img/table.png)
+
+
+
 Copyright 2020-2021 Blackrock Digital LLC. Code released under the license.
