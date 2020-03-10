@@ -1,6 +1,6 @@
 # [SISTEMA DE INVENTARIOS](https://github.com/JackAndrewG/Sistema-Inventarios/tree/master)
 
-[Sistema de Inventarios](https://github.com/JackAndrewG/Sistema-Inventarios/tree/master) es una sistema para el curso de Simulación de la[Universidad Nacional de Loja](https://unl.edu.ec/) creado por estudiantes de 6to ciclo [Karla Jiménez](https://github.com/karla-jc), [Jackson Guzmán](https://github.com/JackAndrewG), [Albert Mora](https://github.com/albert1299).
+[Sistema de Inventarios](https://github.com/JackAndrewG/Sistema-Inventarios/tree/master) es una sistema para el curso de Simulación de la [Universidad Nacional de Loja](https://unl.edu.ec/) creado por estudiantes de 6to ciclo: [Karla Jiménez](https://github.com/karla-jc), [Jackson Guzmán](https://github.com/JackAndrewG), [Albert Mora](https://github.com/albert1299).
 
 ## Vista Previa
 
